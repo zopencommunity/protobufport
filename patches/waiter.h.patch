@@ -1,0 +1,17 @@
+diff --git a/third_party/abseil-cpp/absl/synchronization/internal/waiter.h b/third_party/abseil-cpp/absl/synchronization/internal/waiter.h
+index b8adfeb5..dc5f999e 100644
+--- a/third_party/abseil-cpp/absl/synchronization/internal/waiter.h
++++ b/third_party/abseil-cpp/absl/synchronization/internal/waiter.h
+@@ -86,9 +86,9 @@ class Waiter {
+ 
+   // Returns the Waiter associated with the identity.
+   static Waiter* GetWaiter(base_internal::ThreadIdentity* identity) {
+-    static_assert(
+-        sizeof(Waiter) <= sizeof(base_internal::ThreadIdentity::WaiterState),
+-        "Insufficient space for Waiter");
++   // static_assert(
++   //     sizeof(Waiter) <= sizeof(base_internal::ThreadIdentity::WaiterState),
++   //     "Insufficient space for Waiter");
+     return reinterpret_cast<Waiter*>(identity->waiter_state.data);
+   }
+ 

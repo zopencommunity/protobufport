@@ -1,0 +1,24 @@
+diff --git a/third_party/abseil-cpp/absl/base/attributes.h b/third_party/abseil-cpp/absl/base/attributes.h
+index b7826e77..908ac1e0 100644
+--- a/third_party/abseil-cpp/absl/base/attributes.h
++++ b/third_party/abseil-cpp/absl/base/attributes.h
+@@ -139,7 +139,7 @@
+ #if (ABSL_HAVE_ATTRIBUTE(weak) ||                                         \
+      (defined(__GNUC__) && !defined(__clang__))) &&                       \
+     (!defined(_WIN32) || (defined(__clang__) && __clang_major__ >= 9)) && \
+-    !defined(__MINGW32__)
++    !defined(__MINGW32__) && !defined(__MVS__)
+ #undef ABSL_ATTRIBUTE_WEAK
+ #define ABSL_ATTRIBUTE_WEAK __attribute__((weak))
+ #define ABSL_HAVE_ATTRIBUTE_WEAK 1
+@@ -708,7 +708,9 @@
+ // just using the standard `constinit` keyword directly over this macro.
+ //
+ // Note that this attribute is redundant if the variable is declared constexpr.
+-#if defined(__cpp_constinit) && __cpp_constinit >= 201907L
++#if defined(__MVS__)
++#define ABSL_CONST_INIT
++#elif defined(__cpp_constinit) && __cpp_constinit >= 201907L
+ #define ABSL_CONST_INIT constinit
+ #elif ABSL_HAVE_CPP_ATTRIBUTE(clang::require_constant_initialization)
+ #define ABSL_CONST_INIT [[clang::require_constant_initialization]]

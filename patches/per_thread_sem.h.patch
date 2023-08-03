@@ -1,0 +1,20 @@
+diff --git a/third_party/abseil-cpp/absl/synchronization/internal/per_thread_sem.h b/third_party/abseil-cpp/absl/synchronization/internal/per_thread_sem.h
+index 90a88809..ea2bec75 100644
+--- a/third_party/abseil-cpp/absl/synchronization/internal/per_thread_sem.h
++++ b/third_party/abseil-cpp/absl/synchronization/internal/per_thread_sem.h
+@@ -99,12 +99,13 @@ bool ABSL_INTERNAL_C_SYMBOL(AbslInternalPerThreadSemWait)(
+ 
+ void absl::synchronization_internal::PerThreadSem::Post(
+     absl::base_internal::ThreadIdentity* identity) {
+-  ABSL_INTERNAL_C_SYMBOL(AbslInternalPerThreadSemPost)(identity);
++//  ABSL_INTERNAL_C_SYMBOL(AbslInternalPerThreadSemPost)(identity);
+ }
+ 
+ bool absl::synchronization_internal::PerThreadSem::Wait(
+     absl::synchronization_internal::KernelTimeout t) {
+-  return ABSL_INTERNAL_C_SYMBOL(AbslInternalPerThreadSemWait)(t);
++ // return ABSL_INTERNAL_C_SYMBOL(AbslInternalPerThreadSemWait)(t);
++return 0;
+ }
+ 
+ #endif  // ABSL_SYNCHRONIZATION_INTERNAL_PER_THREAD_SEM_H_

@@ -1,0 +1,13 @@
+diff --git a/third_party/abseil-cpp/absl/base/internal/low_level_alloc.h b/third_party/abseil-cpp/absl/base/internal/low_level_alloc.h
+index eabb14a9..cbacdb17 100644
+--- a/third_party/abseil-cpp/absl/base/internal/low_level_alloc.h
++++ b/third_party/abseil-cpp/absl/base/internal/low_level_alloc.h
+@@ -36,7 +36,7 @@
+ // LowLevelAlloc.
+ #ifdef ABSL_LOW_LEVEL_ALLOC_MISSING
+ #error ABSL_LOW_LEVEL_ALLOC_MISSING cannot be directly set
+-#elif !defined(ABSL_HAVE_MMAP) && !defined(_WIN32)
++#elif !defined(ABSL_HAVE_MMAP) && !defined(_WIN32) && !defined(__MVS__)
+ #define ABSL_LOW_LEVEL_ALLOC_MISSING 1
+ #endif
+ 

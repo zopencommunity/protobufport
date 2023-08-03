@@ -1,0 +1,13 @@
+diff --git a/src/google/protobuf/port_def.inc b/src/google/protobuf/port_def.inc
+index be117423b..45b63ae4f 100644
+--- a/src/google/protobuf/port_def.inc
++++ b/src/google/protobuf/port_def.inc
+@@ -656,6 +656,8 @@ static_assert(PROTOBUF_ABSL_MIN(20230125, 3),
+ #endif
+ #if defined(_MSC_VER)
+ #define PROTOBUF_THREAD_LOCAL __declspec(thread)
++#elif defined(__MVS__)
++#define PROTOBUF_THREAD_LOCAL
+ #else
+ #define PROTOBUF_THREAD_LOCAL __thread
+ #endif
