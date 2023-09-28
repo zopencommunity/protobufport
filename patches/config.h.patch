@@ -1,8 +1,8 @@
 diff --git a/third_party/abseil-cpp/absl/base/config.h b/third_party/abseil-cpp/absl/base/config.h
-index 05d960b6..4e8d2a62 100644
+index ff0c2978..091427a7 100644
 --- a/third_party/abseil-cpp/absl/base/config.h
 +++ b/third_party/abseil-cpp/absl/base/config.h
-@@ -305,6 +305,7 @@ static_assert(ABSL_INTERNAL_INLINE_NAMESPACE_STR[0] != 'h' ||
+@@ -288,6 +288,7 @@ static_assert(ABSL_INTERNAL_INLINE_NAMESPACE_STR[0] != 'h' ||
      !(TARGET_OS_IPHONE && __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_9_0)
  #define ABSL_HAVE_THREAD_LOCAL 1
  #endif
@@ -10,15 +10,3 @@ index 05d960b6..4e8d2a62 100644
  #else  // !defined(__APPLE__)
  #define ABSL_HAVE_THREAD_LOCAL 1
  #endif
-@@ -429,8 +430,10 @@ static_assert(ABSL_INTERNAL_INLINE_NAMESPACE_STR[0] != 'h' ||
-     defined(__asmjs__) || defined(__wasm__) || defined(__Fuchsia__) ||    \
-     defined(__sun) || defined(__ASYLO__) || defined(__myriad2__) ||       \
-     defined(__HAIKU__) || defined(__OpenBSD__) || defined(__NetBSD__) ||  \
--    defined(__QNX__)
-+    defined(__QNX__) || defined(__MVS__)
- #define ABSL_HAVE_MMAP 1
-+
-+#define MAP_ANONYMOUS 0
- #endif
- 
- // ABSL_HAVE_PTHREAD_GETSCHEDPARAM
