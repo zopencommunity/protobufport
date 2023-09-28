@@ -1,16 +1,26 @@
 diff --git a/third_party/abseil-cpp/absl/base/internal/sysinfo.cc b/third_party/abseil-cpp/absl/base/internal/sysinfo.cc
-index da499d3a..2c1ef810 100644
+index 79eaba3e..104974cf 100644
 --- a/third_party/abseil-cpp/absl/base/internal/sysinfo.cc
 +++ b/third_party/abseil-cpp/absl/base/internal/sysinfo.cc
-@@ -189,7 +189,11 @@ static double GetNominalCPUFrequency() {
+@@ -198,7 +198,7 @@ static double GetNominalCPUFrequency() {
  // and the memory location pointed to by value is set to the value read.
  static bool ReadLongFromFile(const char *file, long *value) {
    bool ret = false;
-+#ifdef __MVS__
-+  int fd = open(file, O_RDONLY);
-+#else
-   int fd = open(file, O_RDONLY | O_CLOEXEC);
-+#endif
-   if (fd != -1) {
-     char line[1024];
-     char *err;
+-#if defined(_POSIX_C_SOURCE)
++#if defined(_POSIX_C_SOURCE) && !defined(__MVS__)
+   const int file_mode = (O_RDONLY | O_CLOEXEC);
+ #else
+   const int file_mode = O_RDONLY;
+@@ -461,6 +461,12 @@ pid_t GetTID() {
+   return reinterpret_cast<pid_t>(thread);
+ }
+ 
++#elif defined(__MVS__)
++
++pid_t GetTID() {
++  return reinterpret_cast<pid_t>((int)pthread_self().__);
++}
++
+ #else
+ 
+ // Fallback implementation of `GetTID` using `pthread_self`.

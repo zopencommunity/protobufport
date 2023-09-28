@@ -1,8 +1,8 @@
 diff --git a/third_party/abseil-cpp/absl/base/internal/low_level_alloc.cc b/third_party/abseil-cpp/absl/base/internal/low_level_alloc.cc
-index 662167b0..ff4f10c7 100644
+index 6d2cfeac..b9f490d2 100644
 --- a/third_party/abseil-cpp/absl/base/internal/low_level_alloc.cc
 +++ b/third_party/abseil-cpp/absl/base/internal/low_level_alloc.cc
-@@ -407,6 +407,8 @@ bool LowLevelAlloc::DeleteArena(Arena *arena) {
+@@ -406,6 +406,8 @@ bool LowLevelAlloc::DeleteArena(Arena *arena) {
      munmap_result = VirtualFree(region, 0, MEM_RELEASE);
      ABSL_RAW_CHECK(munmap_result != 0,
                     "LowLevelAlloc::DeleteArena: VitualFree failed");
@@ -11,16 +11,16 @@ index 662167b0..ff4f10c7 100644
  #else
  #ifndef ABSL_LOW_LEVEL_ALLOC_ASYNC_SIGNAL_SAFE_MISSING
      if ((arena->flags & LowLevelAlloc::kAsyncSignalSafe) == 0) {
-@@ -553,6 +555,8 @@ static void *DoAllocWithArena(size_t request, LowLevelAlloc::Arena *arena) {
-       new_pages = VirtualAlloc(0, new_pages_size,
+@@ -552,6 +554,8 @@ static void *DoAllocWithArena(size_t request, LowLevelAlloc::Arena *arena) {
+       new_pages = VirtualAlloc(nullptr, new_pages_size,
                                 MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
        ABSL_RAW_CHECK(new_pages != nullptr, "VirtualAlloc failed");
 +#elif __MVS__
-+    new_pages = malloc(new_pages_size);
++     new_pages = malloc(new_pages_size);
  #else
  #ifndef ABSL_LOW_LEVEL_ALLOC_ASYNC_SIGNAL_SAFE_MISSING
        if ((arena->flags & LowLevelAlloc::kAsyncSignalSafe) != 0) {
-@@ -563,10 +567,10 @@ static void *DoAllocWithArena(size_t request, LowLevelAlloc::Arena *arena) {
+@@ -562,10 +566,10 @@ static void *DoAllocWithArena(size_t request, LowLevelAlloc::Arena *arena) {
                           MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
        }
  #else
