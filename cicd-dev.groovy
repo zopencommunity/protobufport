@@ -1,6 +1,15 @@
 node('linux')
 {
   stage ('Poll') {
+    //Poll from upstream
+    checkout([
+      $class: 'GitSCM',
+      branches: [[name: '*/main']],
+      doGenerateSubmoduleConfigurations: false,
+      extensions: [],
+      userRemoteConfigs: [[url: 'https://github.com/protocolbuffers/protobuf.git']]])
+  }
+    //Poll for local changes
     checkout([
       $class: 'GitSCM',
       branches: [[name: '*/main']],
