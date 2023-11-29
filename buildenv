@@ -1,9 +1,12 @@
-PROTOBUF_VERSION="1.0.0"
+# bump: protobuf-version /PROTOBUF_VERSION="(.*)"/ https://github.com/protocolbuffers/protobuf.git|semver:*
+PROTOBUF_VERSION="25.0"
+
+export ZOPEN_BUILD_LINE="STABLE"
 export ZOPEN_STABLE_URL="https://github.com/protocolbuffers/protobuf.git"
+export ZOPEN_STABLE_TAGS="v${PROTOBUF_VERSION}"
 export ZOPEN_STABLE_DEPS="zoslib make cmake coreutils"
 export ZOPEN_DEV_URL="https://github.com/protocolbuffers/protobuf.git"
 export ZOPEN_DEV_DEPS="zoslib make cmake coreutils"
-export ZOPEN_BUILD_LINE="STABLE"
 export ZOPEN_CLONE_SUBMODULES=yes
 export ZOPEN_COMP="CLANG"
 export ZOPEN_EXTRA_CFLAGS="-O0" # Avoid compiler abend
@@ -51,7 +54,5 @@ zopen_append_to_setup()
 
 zopen_get_version()
 {
-  # Modify to echo the version of your tool/library
-  # Rather than hardcoding the version, obtain the version by running the tool/library
   echo "${PROTOBUF_VERSION}"
 }
