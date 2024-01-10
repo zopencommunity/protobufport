@@ -1,5 +1,5 @@
 # bump: protobuf-version /PROTOBUF_VERSION="(.*)"/ https://github.com/protocolbuffers/protobuf.git|semver:*
-PROTOBUF_VERSION="25.0"
+PROTOBUF_VERSION="25.2"
 
 export ZOPEN_BUILD_LINE="STABLE"
 export ZOPEN_STABLE_URL="https://github.com/protocolbuffers/protobuf.git"
