@@ -2,6 +2,7 @@
 PROTOBUF_VERSION="25.0"
 
 export ZOPEN_BUILD_LINE="STABLE"
+export ZOPEN_CATEGORIES="library"
 export ZOPEN_STABLE_URL="https://github.com/protocolbuffers/protobuf.git"
 export ZOPEN_STABLE_TAGS="v${PROTOBUF_VERSION}"
 export ZOPEN_STABLE_DEPS="zoslib make cmake coreutils"
