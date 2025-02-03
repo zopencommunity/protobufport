@@ -1,17 +1,17 @@
 # bump: protobuf-version /PROTOBUF_VERSION="(.*)"/ https://github.com/protocolbuffers/protobuf.git|semver:*
-PROTOBUF_VERSION="25.0"
+PROTOBUF_VERSION="29.3"
 
 export ZOPEN_BUILD_LINE="STABLE"
 export ZOPEN_CATEGORIES="library"
 export ZOPEN_STABLE_URL="https://github.com/protocolbuffers/protobuf.git"
-export ZOPEN_STABLE_TAGS="v${PROTOBUF_VERSION}"
-export ZOPEN_STABLE_DEPS="zoslib make cmake coreutils"
+export ZOPEN_STABLE_TAG="v${PROTOBUF_VERSION}"
+export ZOPEN_STABLE_DEPS="zoslib make cmake coreutils git"
 export ZOPEN_DEV_URL="https://github.com/protocolbuffers/protobuf.git"
-export ZOPEN_DEV_DEPS="zoslib make cmake coreutils"
+export ZOPEN_DEV_DEPS="zoslib make cmake coreutils git"
 export ZOPEN_CLONE_SUBMODULES=yes
 export ZOPEN_COMP="CLANG"
 export ZOPEN_EXTRA_CFLAGS="-O0" # Avoid compiler abend
-export ZOPEN_EXTRA_CXXFLAGS="-O0" # Avoid compiler abend
+export ZOPEN_EXTRA_CXXFLAGS="-O0 -std=c++17" # Avoid compiler abend
 
 export ZOPEN_CONFIGURE="cmake"
 export ZOPEN_CONFIGURE_OPTS="-Dprotobuf_BUILD_SHARED_LIBS=OFF -Dprotobuf_BUILD_TESTS=OFF -B ../build --install-prefix \$ZOPEN_INSTALL_DIR/ ."
@@ -25,9 +25,12 @@ export ZOPEN_INSTALL_OPTS="--install ../build"
 
 zopen_pre_patch()
 {
+  cd protobuf
+  git submodule update --init --recursive
   rm third_party/abseil-cpp/.git
   git add third_party/abseil-cpp/
   git commit -m "Add third part module"
+  cd -
 }
 
 zopen_check_results()
