@@ -1,19 +1,16 @@
 diff --git a/src/google/protobuf/compiler/command_line_interface.cc b/src/google/protobuf/compiler/command_line_interface.cc
-index ae6b87e..beaba21 100644
+index ae6b87e..11edc85 100644
 --- a/src/google/protobuf/compiler/command_line_interface.cc
 +++ b/src/google/protobuf/compiler/command_line_interface.cc
-@@ -94,6 +94,10 @@
+@@ -94,6 +94,7 @@
  
  #include "google/protobuf/stubs/platform_macros.h"
  
-+#if defined(__MVS__)
-+#include "zos-io.h"
-+#endif
 +
  // Must be included last.
  #include "google/protobuf/port_def.inc"
  
-@@ -2995,7 +2999,10 @@ bool CommandLineInterface::WriteDescriptorSet(
+@@ -2995,7 +2996,10 @@ bool CommandLineInterface::WriteDescriptorSet(
      perror(descriptor_set_out_name_.c_str());
      return false;
    }
