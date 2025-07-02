@@ -1,0 +1,27 @@
+diff --git a/src/google/protobuf/compiler/command_line_interface.cc b/src/google/protobuf/compiler/command_line_interface.cc
+index ae6b87e..beaba21 100644
+--- a/src/google/protobuf/compiler/command_line_interface.cc
++++ b/src/google/protobuf/compiler/command_line_interface.cc
+@@ -94,6 +94,10 @@
+ 
+ #include "google/protobuf/stubs/platform_macros.h"
+ 
++#if defined(__MVS__)
++#include "zos-io.h"
++#endif
++
+ // Must be included last.
+ #include "google/protobuf/port_def.inc"
+ 
+@@ -2995,7 +2999,10 @@ bool CommandLineInterface::WriteDescriptorSet(
+     perror(descriptor_set_out_name_.c_str());
+     return false;
+   }
+-
++  #if defined(__MVS__)
++    // Tag the open file descriptor as binary (z/OS specific)
++    __setfdbinary(fd);
++  #endif
+   io::FileOutputStream out(fd);
+ 
+   {
